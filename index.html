@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untukmu | Permintaan Maafku</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5d5d5d;
+            --accent: #d4a373;
+            --bg: #fefae0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg);
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary);
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1.5s ease-in-out;
+            padding: 20px;
+        }
+
+        .container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .message-box {
+            max-width: 500px;
+            line-height: 1.8;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .heart {
+            color: #bc6c25;
+            font-size: 24px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .btn {
+            margin-top: 30px;
+            padding: 12px 30px;
+            border: 1px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            cursor: pointer;
+            border-radius: 50px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Animasi Bunga Jatuh Sederhana */
+        .petal {
+            position: fixed;
+            top: -10%;
+            user-select: none;
+            z-index: -1;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainContainer">
+        <div class="heart">❤</div>
+        <div class="message-box">
+            <h1>Maafkan Aku...</h1>
+            <p id="typedText"></p>
+            <button class="btn" onclick="acceptApology()">Klik di sini</button>
+        </div>
+    </div>
+
+    <script>
+        // Animasi teks mengetik
+        const text = "Aku sadar sikap dan ucapanku kemarin melukaimu. Tidak ada niat sedikit pun untuk menyakiti. Bisakah kita memulai kembali dengan lebih baik? Aku sungguh menyesal.";
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typedText").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        window.onload = () => {
+            document.getElementById('mainContainer').classList.add('show');
+            setTimeout(typeWriter, 1000);
+            createPetals();
+        };
+
+        function acceptApology() {
+            alert("Terima kasih sudah memahami. Aku janji akan lebih menjaga lisan dan sikapku. ✨");
+        }
+
+        // Efek kelopak bunga jatuh
+        function createPetals() {
+            for(let i=0; i<20; i++) {
+                let petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.innerHTML = '🌸';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                petal.style.opacity = Math.random();
+                petal.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                document.body.appendChild(petal);
+            }
+        }
+    </script>
+</body>
+</html>
